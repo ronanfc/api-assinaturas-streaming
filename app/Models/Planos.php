@@ -5,6 +5,7 @@ namespace App\Models;
 use Database\Factories\PlanosFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property string $nome
@@ -18,7 +19,7 @@ use Illuminate\Database\Eloquent\Model;
 class Planos extends Model
 {
     /** @use HasFactory<\Database\Factories\PlanosFactory> */
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = ['nome', 'slug', 'price_id', 'product_id'];
 

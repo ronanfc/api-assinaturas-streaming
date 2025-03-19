@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('price_id')->unique(); // ID do price
             $table->string('product_id')->unique(); // ID do product
+            $table->softDeletes();
             $table->timestamps();
         });
     }
