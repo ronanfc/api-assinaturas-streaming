@@ -1,0 +1,772 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Assinatura Streaming",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/assinaturas": {
+            "get": {
+                "tags": [
+                    "Assinaturas"
+                ],
+                "summary": "Lista todas as assinaturas",
+                "operationId": "4ea2f37654244a965c9277c6bcf47fe8",
+                "responses": {
+                    "200": {
+                        "description": "Lista de assinaturas"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Assinaturas"
+                ],
+                "summary": "Cria uma nova assinatura",
+                "operationId": "a64e9f48e4d7f93e54e4d0e5f10ec714",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "user_id",
+                                    "price_id"
+                                ],
+                                "properties": {
+                                    "user_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "price_id": {
+                                        "type": "string",
+                                        "example": "price_12345"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Assinatura criada com sucesso"
+                    },
+                    "500": {
+                        "description": "Erro ao criar assinatura"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/assinaturas/{user}": {
+            "get": {
+                "tags": [
+                    "Assinaturas"
+                ],
+                "summary": "Exibe uma assinatura",
+                "operationId": "3016f668106da3eaae7c0b6a3010e40c",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detalhes da assinatura"
+                    },
+                    "404": {
+                        "description": "Assinatura não encontrada"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/assinaturas/cancelar": {
+            "post": {
+                "tags": [
+                    "Assinaturas"
+                ],
+                "summary": "Cancela uma assinatura",
+                "operationId": "eaa5e386d06fbad793e97fd6a39d1e6a",
+                "requestBody": {
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Assinatura cancelada com sucesso"
+                    },
+                    "500": {
+                        "description": "Erro ao cancelar assinatura"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/assinaturas/reativar": {
+            "post": {
+                "tags": [
+                    "Assinaturas"
+                ],
+                "summary": "Reativa uma assinatura em período de carência",
+                "operationId": "5fa9df2f24ef4d47368d392d3d911918",
+                "requestBody": {
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Assinatura reativada com sucesso"
+                    },
+                    "500": {
+                        "description": "Erro ao reativar assinatura"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/assinaturas/status": {
+            "post": {
+                "tags": [
+                    "Assinaturas"
+                ],
+                "summary": "Verifica o status da assinatura do usuário autenticado",
+                "operationId": "32528e5052152976bbc629f884ce1361",
+                "responses": {
+                    "200": {
+                        "description": "Status da assinatura"
+                    },
+                    "404": {
+                        "description": "Sem assinatura ativa"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "Autenticação"
+                ],
+                "summary": "Registrar um novo usuário",
+                "description": "Registra um novo usuário.",
+                "operationId": "8a56853624e025573120a09a4c75d468",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password",
+                                    "password_confirmation"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "João da Silva"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "joao@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "12345678"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "example": "12345678"
+                                    },
+                                    "is_admin": {
+                                        "type": "boolean",
+                                        "example": false
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Usuário registrado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Usuário registrado com sucesso!"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "406": {
+                        "description": "Requisição inválida",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Requisição inválida"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Autenticação"
+                ],
+                "summary": "Login do usuário",
+                "description": "Realiza login e retorna um token de acesso.",
+                "operationId": "a3b306d14572d1f4bd6c064b3233e7b8",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "joao@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "12345678"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login bem-sucedido",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "token": {
+                                            "type": "string",
+                                            "example": "eyJ0eXAiOiJKV1..."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Credenciais inválidas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Credenciais inválidas"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "406": {
+                        "description": "Requisição inválida",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Requisição inválida"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/logout": {
+            "post": {
+                "tags": [
+                    "Autenticação"
+                ],
+                "summary": "Logout do usuário",
+                "description": "Realiza o logout do usuário e revoga o token.",
+                "operationId": "fe8f3429cd6979b3b4517e186505f9f9",
+                "responses": {
+                    "200": {
+                        "description": "Logout realizado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Desconectado com sucesso"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autorizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Token inválido ou ausente"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/planos": {
+            "get": {
+                "tags": [
+                    "Planos"
+                ],
+                "summary": "Listar todos os planos ativos",
+                "operationId": "03e1c7c3c995df055f01241255080a06",
+                "responses": {
+                    "200": {
+                        "description": "Lista de planos ativos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "string",
+                                                "example": "prod_1234"
+                                            },
+                                            "nome": {
+                                                "type": "string",
+                                                "example": "Plano Mensal"
+                                            },
+                                            "prices": {
+                                                "type": "array",
+                                                "items": {
+                                                    "properties": {
+                                                        "price_id": {
+                                                            "type": "string",
+                                                            "example": "price_abc123"
+                                                        },
+                                                        "amount": {
+                                                            "type": "number",
+                                                            "example": 99.9
+                                                        },
+                                                        "currency": {
+                                                            "type": "string",
+                                                            "example": "BRL"
+                                                        },
+                                                        "recorrencia": {
+                                                            "type": "string",
+                                                            "example": "Mensal"
+                                                        },
+                                                        "interval": {
+                                                            "type": "string",
+                                                            "example": "month"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Planos"
+                ],
+                "summary": "Criar um novo plano",
+                "operationId": "6806e9fec7343a10c76923aa8ecb5fc7",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "amount"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Plano Premium"
+                                    },
+                                    "amount": {
+                                        "type": "number",
+                                        "example": 199.9
+                                    },
+                                    "interval": {
+                                        "type": "string",
+                                        "example": "month"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Plano criado com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Plano criado com sucesso!"
+                                        },
+                                        "id": {
+                                            "type": "string",
+                                            "example": "prod_abc123"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/planos/{id}/edit": {
+            "get": {
+                "tags": [
+                    "Planos"
+                ],
+                "summary": "Exibe os detalhes de um plano para edição",
+                "operationId": "4a409840ef1a8855b002dfc31aa04915",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do plano (product_id do Stripe)",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "prod_abc123"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detalhes do plano para edição",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "string",
+                                            "example": "prod_abc123"
+                                        },
+                                        "nome": {
+                                            "type": "string",
+                                            "example": "Plano Premium"
+                                        },
+                                        "prices": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "price_id": {
+                                                        "type": "string",
+                                                        "example": "price_abc123"
+                                                    },
+                                                    "amount": {
+                                                        "type": "number",
+                                                        "example": 199.9
+                                                    },
+                                                    "currency": {
+                                                        "type": "string",
+                                                        "example": "BRL"
+                                                    },
+                                                    "interval": {
+                                                        "type": "string",
+                                                        "example": "month"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Plano não encontrado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/planos/{id}": {
+            "put": {
+                "tags": [
+                    "Planos"
+                ],
+                "summary": "Atualiza os detalhes de um plano",
+                "operationId": "4ed4e6040671b71c56a4eb7e2f216701",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do plano (product_id do Stripe)",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "prod_abc123"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nome",
+                                    "price_id",
+                                    "amount",
+                                    "interval"
+                                ],
+                                "properties": {
+                                    "nome": {
+                                        "type": "string",
+                                        "example": "Plano Anual"
+                                    },
+                                    "price_id": {
+                                        "type": "string",
+                                        "example": "price_abc123"
+                                    },
+                                    "amount": {
+                                        "type": "number",
+                                        "example": 299.9
+                                    },
+                                    "interval": {
+                                        "type": "string",
+                                        "example": "year"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Plano atualizado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Plano atualizado com sucesso!"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Plano não encontrado"
+                    },
+                    "500": {
+                        "description": "Erro ao atualizar plano"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Planos"
+                ],
+                "summary": "Desativar um plano",
+                "operationId": "e9c256933050b9070173058869a3c711",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do plano (product_id do Stripe)",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "prod_abc123"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Plano desativado com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Plano deletado com sucesso!"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Assinaturas",
+            "description": "Assinaturas"
+        },
+        {
+            "name": "Autenticação",
+            "description": "Autenticação"
+        },
+        {
+            "name": "Planos",
+            "description": "Planos"
+        }
+    ]
+}
